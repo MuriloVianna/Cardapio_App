@@ -2,22 +2,20 @@ import 'package:cardapio/estilos.dart';
 import 'package:flutter/material.dart';
 import '../Widget/widget.dart';
 
-class TelaCadastro extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   final void Function()? onTap;
 
-  const TelaCadastro({super.key, required this.onTap});
+  const LoginPage({super.key, required this.onTap});
 
   @override
-  State<TelaCadastro> createState() => _TelaCadastroState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _TelaCadastroState extends State<TelaCadastro> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = TextEditingController();
     TextEditingController senhaController = TextEditingController();
-    TextEditingController ConfirmaSenhaController = TextEditingController();
-    TextEditingController nomeControler = TextEditingController();
     return Stack(
       children: [
         BackgroundImage(), //Retorna a imagem de fundo
@@ -29,40 +27,22 @@ class _TelaCadastroState extends State<TelaCadastro> {
               child: Column(
             children: [
               const SizedBox(
-                height: 15,
+                height: 30,
               ),
               // icone do app
-              //
-              // Adicionar Logo pequena em cima
-              //
               Container(
-                height: 150,
+                height: 200,
                 child: Center(
                   child: Text(
                     " Ana's\nCoffee",
-                    style: logo.copyWith(
-                      fontSize: 50,
-                    ), //Propriedades da logo definada na classe paletas
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 50,
-                child: Center(
-                  child: Text(
-                    " Vamos criar sua conta!",
-                    style: textoLogin.copyWith(
-                        fontSize:
-                            30), //Propriedades da logo definada na classe paletas
+                    style:
+                        logo, //Propriedades da logo definada na classe paletas
                   ),
                 ),
               ),
               // texto do restaurante
               SizedBox(
-                height: 10,
+                height: 50,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -79,13 +59,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           crossAxisAlignment: CrossAxisAlignment
                               .end, // Deixa o botão "esqueceu a senha" na direita
                           children: [
-                            NomeText(
-                              controller: nomeControler,
-                              hintText: 'Nome',
-                            ),
-                            SizedBox(
-                              height: 22,
-                            ),
                             // Caixa do email
                             EmailText(
                               controller: emailController,
@@ -103,13 +76,17 @@ class _TelaCadastroState extends State<TelaCadastro> {
                               obscureText: true,
                               hintText: 'Senha',
                             ),
-                            SizedBox(
-                              height: 22,
-                            ),
-                            SenhaText(
-                              controller: ConfirmaSenhaController,
-                              obscureText: true,
-                              hintText: 'Confirme a Senha',
+                            //
+                            // Botao esqueceu a senha
+                            //
+                            TextButton(
+                              child: Text(
+                                'Esqueceu a senha?',
+                                style: textoLogin.copyWith(
+                                  color: cor1,
+                                ),
+                              ),
+                              onPressed: () {},
                             ),
                           ],
                         ),
@@ -117,11 +94,11 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       Column(
                         children: [
                           SizedBox(
-                            height: 30,
+                            height: 100,
                           ),
                           // Botao Login
                           BotaoLogin(
-                            text: 'Criar conta',
+                            text: 'Login',
                             style:
                                 ElevatedButton.styleFrom(backgroundColor: cor5),
                             onTap: widget.onTap,
@@ -132,7 +109,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           ),
                           //
                           BotaoCadatro(
-                            text: 'Voltar',
+                            text: 'Cadastre-se!',
                             onTap: widget.onTap,
                           ),
                         ],

@@ -7,6 +7,7 @@ class TelaEsqueceuSenha extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
     return Stack(
       children: [
         BackgroundImage(), //Retorna a imagem de fundo
@@ -43,50 +44,31 @@ class TelaEsqueceuSenha extends StatelessWidget {
                   child: Column(
                     children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12), // Espaço entre as duas caixas
-                            //
-                            //               Caixa do Email
-                            //
-
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[600]?.withOpacity(0.8),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical:
-                                          20), // Deixa o conteudo do textField alinhado simetricamente
-                                  border: InputBorder.none,
-                                  hintText: 'Email',
-                                  prefixIcon: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            20), // Deixa o conteudo do textField alinhado simetricamente
-                                    child: Icon(Icons.mail, //Icone do email
-                                        size: 30,
-                                        color: Colors.white),
-                                  ),
-                                  hintStyle:
-                                      textoLogin, // Propriedades do texto de email na classe paletas
-                                ),
-                                style: textoLogin,
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ),
+                          Text(
+                            'Esqueceu a senha?',
+                            style: textoLogin.copyWith(fontSize: 35),
+                            textAlign: TextAlign.left,
                           ),
+                          Text(
+                            'Insira um email de recuperação',
+                            style: textoLogin.copyWith(fontSize: 15),
+                            textAlign: TextAlign.left,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          EmailText(
+                              controller: emailController,
+                              obscureText: false,
+                              hintText: 'Email de recuperação'),
                         ],
                       ),
                       Column(
                         children: [
                           const SizedBox(
-                            height: 100,
+                            height: 180,
                           ),
                           Container(
                             width: double.infinity,
