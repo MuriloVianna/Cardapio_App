@@ -11,6 +11,9 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+// Chave global para o formulário
+final _formKey = GlobalKey<FormState>();
+
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
@@ -55,53 +58,66 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 12), // Espaço entre as duas caixas
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment
-                              .end, // Deixa o botão "esqueceu a senha" na direita
-                          children: [
-                            // Caixa do email
-                            EmailText(
-                              controller: emailController,
-                              obscureText: false,
-                              hintText: 'Email',
-                            ),
-                            SizedBox(
-                              height: 22,
-                            ),
-                            //
-                            // Caixa da senha
-                            //
-                            SenhaText(
-                              controller: senhaController,
-                              obscureText: true,
-                              hintText: 'Senha',
-                            ),
-                            //
-                            // Botao esqueceu a senha
-                            //
-                            TextButton(
-                              child: Text(
-                                'Esqueceu a senha?',
-                                style: textoLogin.copyWith(
-                                  color: cor1,
-                                ),
+                        child: Form(
+                          key:
+                              _formKey, // Associa a chave do formulário para validação
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment
+                                .end, // Deixa o botão "esqueceu a senha" na direita
+                            children: [
+                              // Caixa do email
+                              EmailText(
+                                controller: emailController,
+                                obscureText: false,
+                                hintText: 'Email',
                               ),
-                              onPressed: () {},
-                            ),
-                          ],
+                              SizedBox(
+                                height: 22,
+                              ),
+                              //
+                              // Caixa da senha
+                              //
+                              SenhaText(
+                                controller: senhaController,
+                                obscureText: true,
+                                hintText: 'Senha',
+                              ),
+                              //
+                              // Botao esqueceu a senha
+                              //
+                              TextButton(
+                                child: Text(
+                                  'Esqueceu a senha?',
+                                  style: textoLogin.copyWith(
+                                    color: cor1,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, 'esqueceu');
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Column(
                         children: [
                           SizedBox(
-                            height: 100,
+                            height: 80,
                           ),
                           // Botao Login
                           BotaoLogin(
                             text: 'Login',
                             style:
                                 ElevatedButton.styleFrom(backgroundColor: cor5),
-                            onTap: widget.onTap,
+                            onTap: () {
+                              // Verifica se o formulário é válido
+                              if (_formKey.currentState!.validate()) {
+                                // Se válido, faz alguma ação (envia os dados, etc.)
+                                Navigator.pushNamed(context, 't2');
+                              }
+                              ;
+                            },
                           ),
                           //
                           SizedBox(
@@ -110,7 +126,9 @@ class _LoginPageState extends State<LoginPage> {
                           //
                           BotaoCadatro(
                             text: 'Cadastre-se!',
-                            onTap: widget.onTap,
+                            onTap: () {
+                              Navigator.pushNamed(context, 'cadastro');
+                            },
                           ),
                         ],
                       ),

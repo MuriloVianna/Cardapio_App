@@ -133,7 +133,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           //
                           BotaoCadatro(
                             text: 'Voltar',
-                            onTap: widget.onTap,
+                            onTap: () {
+                              Navigator.pushNamed(context, 'login');
+                            },
                           ),
                         ],
                       ),

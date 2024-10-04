@@ -51,6 +51,9 @@ class EmailText extends StatelessWidget {
   final bool obscureText;
   final String hintText;
 
+  // Regex para validar o formato do email
+  final String emailPattern = r'^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+';
+
   const EmailText({
     super.key,
     required this.controller,
@@ -89,6 +92,14 @@ class EmailText extends StatelessWidget {
         style: textoLogin,
         keyboardType: TextInputType
             .emailAddress, // Teclado otimizado para e-mail e validação semantica
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'O campo de email não pode estar vazio';
+          } else if (!RegExp(emailPattern).hasMatch(value)) {
+            return 'Digite um email válido';
+          }
+          return null;
+        },
         textInputAction: TextInputAction.next,
       ),
     );
@@ -136,6 +147,14 @@ class SenhaText extends StatelessWidget {
               textoLogin, // Propriedades do texto de email na classe paletas
         ),
         style: textoLogin,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'O campo de senha não pode estar vazio';
+          } else if (value.length < 6) {
+            return 'A senha deve ter pelo menos 6 caracteres';
+          }
+          return null;
+        },
         textInputAction: TextInputAction.next,
       ),
     );

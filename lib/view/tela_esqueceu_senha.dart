@@ -98,7 +98,9 @@ class TelaEsqueceuSenha extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: OutlinedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'login');
+                              },
                               child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 16),
                                 child: Text(

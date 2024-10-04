@@ -22,15 +22,15 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowMaterialGrid: false,
       debugShowCheckedModeBanner: false, //Tira o banner de debug da lateral
-      initialRoute: 't2', //Tela que o app inicia
+      initialRoute: 'login', //Tela que o app inicia
       routes: {
-        't1': (context) => LoginPage(
+        'login': (context) => LoginPage(
               onTap: () {},
             ), //Tela de login
-        't2': (context) => TelaCadastro(
+        'cadastro': (context) => TelaCadastro(
               onTap: () {},
             ), //Tela de cadastro
-        't3': (context) => TelaEsqueceuSenha(), //Tela de esqueceu a senha
+        'esqueceu': (context) => TelaEsqueceuSenha(), //Tela de esqueceu a senha
       },
     );
   }
