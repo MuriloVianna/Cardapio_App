@@ -94,9 +94,9 @@ class EmailText extends StatelessWidget {
             .emailAddress, // Teclado otimizado para e-mail e validação semantica
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'O campo de email não pode estar vazio';
+            return '    O campo de email não pode estar vazio';
           } else if (!RegExp(emailPattern).hasMatch(value)) {
-            return 'Digite um email válido';
+            return '    Digite um email válido';
           }
           return null;
         },
@@ -149,10 +149,66 @@ class SenhaText extends StatelessWidget {
         style: textoLogin,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'O campo de senha não pode estar vazio';
+            return '    O campo de senha não pode estar vazio';
           } else if (value.length < 6) {
-            return 'A senha deve ter pelo menos 6 caracteres';
+            return '    A senha deve ter pelo menos 6 caracteres';
           }
+          return null;
+        },
+        textInputAction: TextInputAction.next,
+      ),
+    );
+  }
+}
+
+class ConfirmaSenhaText extends StatelessWidget {
+  final TextEditingController controller;
+  final TextEditingController senhaController;
+  final bool obscureText;
+  final String hintText;
+
+  const ConfirmaSenhaText({
+    super.key,
+    required this.controller,
+    required this.obscureText,
+    required this.hintText, required this.senhaController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[600]?.withOpacity(0.8),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: TextFormField(
+        controller: controller, // controla o texto inserido
+        obscureText:
+            obscureText, // controla se e possivel ver oq esta sendo digitado
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(
+              vertical:
+                  20), // Deixa o conteudo do textField alinhado simetricamente
+          border: InputBorder.none,
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal:
+                    20), // Deixa o conteudo do textField alinhado simetricamente
+            child: Icon(Icons.lock, //Icone do email
+                size: 30,
+                color: Colors.white),
+          ),
+          hintText: hintText,
+          hintStyle:
+              textoLogin, // Propriedades do texto de email na classe paletas
+        ),
+        style: textoLogin,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '    O campo de senha não pode estar vazio';
+          } else if (value != senhaController.text) {
+                    return 'As senhas não correspondem';
+                  }
           return null;
         },
         textInputAction: TextInputAction.next,
@@ -198,6 +254,12 @@ class NomeText extends StatelessWidget {
               textoLogin, // Propriedades do texto de email na classe paletas
         ),
         style: textoLogin,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '    O campo de email não pode estar vazio';
+          }
+          return null;
+        },
         textInputAction: TextInputAction.next,
       ),
     );

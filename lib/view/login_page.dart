@@ -59,8 +59,8 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 12), // Espaço entre as duas caixas
                         child: Form(
-                          key:
-                              _formKey, // Associa a chave do formulário para validação
+                          key: _formKey,
+                          // Associa a chave do formulário para validação
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment
                                 .end, // Deixa o botão "esqueceu a senha" na direita
@@ -93,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 onPressed: () {
+                                  _formKey.currentState!.reset();
                                   Navigator.pushNamed(context, 'esqueceu');
                                 },
                               ),
@@ -114,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                               // Verifica se o formulário é válido
                               if (_formKey.currentState!.validate()) {
                                 // Se válido, faz alguma ação (envia os dados, etc.)
+                                _formKey.currentState!.reset();
                                 Navigator.pushNamed(context, 't2');
                               }
                               ;
@@ -127,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                           BotaoCadatro(
                             text: 'Cadastre-se!',
                             onTap: () {
+                              _formKey.currentState!.reset();
                               Navigator.pushNamed(context, 'cadastro');
                             },
                           ),

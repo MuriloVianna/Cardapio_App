@@ -2,9 +2,19 @@ import 'package:cardapio/estilos.dart';
 import 'package:flutter/material.dart';
 import '../Widget/widget.dart';
 
-class TelaEsqueceuSenha extends StatelessWidget {
-  const TelaEsqueceuSenha({super.key});
+class TelaEsqueceuSenha extends StatefulWidget {
+  final void Function()? onTap;
 
+  const TelaEsqueceuSenha({super.key, this.onTap});
+
+  @override
+  State<TelaEsqueceuSenha> createState() => _TelaEsqueceuSenhaState();
+}
+
+// Chave global para o formulário
+final _formKey = GlobalKey<FormState>();
+
+class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = TextEditingController();
@@ -41,34 +51,41 @@ class TelaEsqueceuSenha extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal:
                           7), // Cria um espaço na lateral para a caixa não ficar colada no canto
+
                   child: Column(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Esqueceu a senha?',
-                            style: textoLogin.copyWith(fontSize: 35),
-                            textAlign: TextAlign.left,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Esqueceu a senha?',
+                                style: textoLogin.copyWith(fontSize: 35),
+                                textAlign: TextAlign.left,
+                              ),
+                              Text(
+                                'Insira um email de recuperação',
+                                style: textoLogin.copyWith(fontSize: 15),
+                                textAlign: TextAlign.left,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              EmailText(
+                                  controller: emailController,
+                                  obscureText: false,
+                                  hintText: 'Email de recuperação'),
+                            ],
                           ),
-                          Text(
-                            'Insira um email de recuperação',
-                            style: textoLogin.copyWith(fontSize: 15),
-                            textAlign: TextAlign.left,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          EmailText(
-                              controller: emailController,
-                              obscureText: false,
-                              hintText: 'Email de recuperação'),
-                        ],
+                        ),
                       ),
                       Column(
                         children: [
                           const SizedBox(
-                            height: 180,
+                            height: 160,
                           ),
                           Container(
                             width: double.infinity,
@@ -76,7 +93,25 @@ class TelaEsqueceuSenha extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text(
+                                        'Email enviado com sucesso!'),
+                                    content: const Text(
+                                        'Verifique seu email para recurar a sua senha'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pushNamed(
+                                            context, 'login'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       const Color.fromARGB(255, 147, 114, 56)),
