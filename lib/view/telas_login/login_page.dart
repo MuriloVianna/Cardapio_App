@@ -1,6 +1,6 @@
 import 'package:cardapio/estilos.dart';
 import 'package:flutter/material.dart';
-import '../Widget/widget.dart';
+import '../../Widget/widget.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;

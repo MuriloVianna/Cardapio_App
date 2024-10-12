@@ -1,11 +1,26 @@
+import 'package:cardapio/service/item_service.dart';
+import 'package:cardapio/view/telas_menu/tela_menu.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
-import 'view/login_page.dart';
-import 'package:cardapio/view/tela_cadastro.dart';
-import 'package:cardapio/view/tela_esqueceu_senha.dart';
+import 'view/telas_login/login_page.dart';
+import 'package:cardapio/view/telas_login/tela_cadastro.dart';
+import 'package:cardapio/view/telas_login/tela_esqueceu_senha.dart';
+
+//
+// INICIALIZAR o localizador de serviço GET_IT
+//
+final getIt = GetIt.instance;
 
 void main() {
+  //
+  // REGISTRAR os serviços
+  //
+  getIt.registerSingleton<ItemService>(ItemService());
+
+  var srv = getIt<ItemService>();
+
   runApp(
     DevicePreview(
       enabled: true,
@@ -31,6 +46,7 @@ class MainApp extends StatelessWidget {
               onTap: () {},
             ), //Tela de cadastro
         'esqueceu': (context) => TelaEsqueceuSenha(), //Tela de esqueceu a senha
+        'Menu': (context) => TelaMenu(),
       },
     );
   }

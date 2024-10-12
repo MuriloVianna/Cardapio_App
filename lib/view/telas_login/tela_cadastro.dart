@@ -1,7 +1,7 @@
 import 'package:cardapio/estilos.dart';
-import 'package:cardapio/view/login_page.dart';
+import 'package:cardapio/view/telas_login/login_page.dart';
 import 'package:flutter/material.dart';
-import '../Widget/widget.dart';
+import '../../Widget/widget.dart';
 
 class TelaCadastro extends StatefulWidget {
   final void Function()? onTap;
