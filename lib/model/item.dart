@@ -5,11 +5,13 @@ class Item {
   final String descricao;
   final double preco;
   int quantidade;
+  final String imagem;
 
   Item(
       //CONSTRUTOR
       this.nome,
       this.descricao,
       this.preco,
-      {this.quantidade = 1});
+      this.imagem,
+      {this.quantidade = 1,});
 }

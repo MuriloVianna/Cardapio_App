@@ -76,6 +76,12 @@ class _TelaMenuState extends State<TelaMenu> {
                           'R\$ ${item.preco.toStringAsFixed(2)}',
                           style: TextStyle(fontSize: 17),
                         ), // Exibe o preço
+                        leading: Image.asset(
+                          item.imagem,
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.cover,
+                        ), // Mostra a imagem à esquerda
                         // leading: SizedBox(), // adicionar imagens
                         onTap: () {
                           Navigator.pushNamed(

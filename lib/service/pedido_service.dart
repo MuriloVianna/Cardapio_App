@@ -17,7 +17,7 @@ class PedidoService {
       pedidos.add(Item(
         item.nome,
         item.descricao,
-        item.preco,
+        item.preco, item.imagem,
         quantidade: item.quantidade, // Passa a quantidade ao novo item
       ));
     }

@@ -63,18 +63,41 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
         ),
       ),
       backgroundColor: cor1,
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Exibir a imagem do item com bordas arredondadas
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Bordas arredondadas
+              child: Image.asset(
+                item.imagem,
+                width: 400,
+                height: 350, // Ajuste a altura da imagem
+                fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço
+              ),
+            ),
+            SizedBox(height: 20), // Espaço entre a imagem e os textos
+
             // Exibir o nome e outros detalhes do item
             Text(
               item.nome,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text(item.descricao),
-            Text('Preço R\$ ${item.preco.toStringAsFixed(2)}'),
+            SizedBox(height: 10),
+            Text(
+              item.descricao,
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Preço: R\$ ${item.preco.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 18, color: cor9),
+            ),
 
             // Controles de quantidade
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -104,26 +127,38 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
             ),
             SizedBox(height: 20),
 
-            // Botão para adicionar ao pedido
-            ElevatedButton(
-              onPressed: () {
-                PedidoService.adicionarPedido(Item(
-                  item.nome,
-                  item.descricao,
-                  item.preco,
-                  quantidade: quantidade, // Aqui estamos passando a quantidade
-                ));
+            // Botão para adicionar ao pedido no final da página rolável
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  PedidoService.adicionarPedido(Item(
+                    item.nome,
+                    item.descricao,
+                    item.preco,
+                    item.imagem,
+                    quantidade:
+                        quantidade, // Aqui estamos passando a quantidade
+                  ));
 
-                print("Adicionando ${quantidade}x ${item.nome} ao pedido");
+                  print("Adicionando ${quantidade}x ${item.nome} ao pedido");
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text(
-                          '$quantidade ${item.nome} adicionado(s) à lista de pedidos!')),
-                );
-              },
-              child: Text('Adicionar ao Pedido'),
-            )
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            '$quantidade ${item.nome} adicionado(s) à lista de pedidos!')),
+                  );
+                },
+                child: Padding(
+                  padding:
+                      const EdgeInsets.all(16.0), // Ajusta o tamanho do botão
+                  child: Text(
+                    'Adicionar ao Pedido',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
