@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                               if (_formKey.currentState!.validate()) {
                                 // Se válido, faz alguma ação (envia os dados, etc.)
                                 _formKey.currentState!.reset();
-                                Navigator.pushNamed(context, 't2');
+                                Navigator.pushNamed(context, 'menu');
                               }
                               ;
                             },

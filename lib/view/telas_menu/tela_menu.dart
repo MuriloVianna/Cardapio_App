@@ -4,9 +4,6 @@ import 'package:cardapio/service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-//
-// UTILIZAR (injetar) o serviço ContatoService
-//
 final ItemService srv = GetIt.instance<ItemService>();
 
 class TelaMenu extends StatefulWidget {
@@ -22,7 +19,7 @@ class _TelaMenuState extends State<TelaMenu> {
   @override
   void initState() {
     super.initState();
-    listaMenu = ItemService.gerarMenu(); // Atualiza a variável de instância
+    listaMenu = srv.gerarMenu(); // Atualiza a variável de instância
     setState(() {}); // Força a reconstrução da tela
   }
 
@@ -39,40 +36,75 @@ class _TelaMenuState extends State<TelaMenu> {
         ),
         backgroundColor: cor9,
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(
+                context, 'login'); // Função para voltar para a tela anterior
+          },
+        ),
       ),
       backgroundColor: cor1,
       body: Padding(
         padding: EdgeInsets.all(20),
         child: ListView.builder(
-            itemCount: listaMenu.length,
-            itemBuilder: (context, index) {
-              final categoria = listaMenu[index];
-              return Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        categoria.categoria,
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
+          itemCount: listaMenu.length,
+          itemBuilder: (context, catIndex) {
+            final categoria = listaMenu[catIndex];
+            return Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      categoria.categoria,
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                    Column(
-                      children: categoria.lista_itens.map((item) {
-                        return ListTile(
-                          title: Text(item.nome), // Exibe o nome do item
-                          //subtitle: Text(item.descricao), // Exibe a descrição do item
-                          trailing: Text(
-                              'R\$ ${item.preco.toStringAsFixed(2)}'), // Exibe o preço
-                        );
-                      }).toList(), // Converte para uma lista de widgets
-                    ),
-                  ],
-                ),
-              );
-            }),
+                  ),
+                  Column(
+                    children:
+                        categoria.lista_itens.asMap().entries.map((entry) {
+                      final itemIndex = entry.key;
+                      final item = entry.value;
+
+                      return ListTile(
+                        title: Text(item.nome), // Exibe o nome do item
+                        // subtitle: Text(item.descricao), // Exibe a descrição do item
+                        trailing: Text(
+                          'R\$ ${item.preco.toStringAsFixed(2)}',
+                          style: TextStyle(fontSize: 17),
+                        ), // Exibe o preço
+                        // leading: SizedBox(), // adicionar imagens
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            'detalhes',
+                            arguments: {
+                              'catIndex': catIndex, // Índice da categoria
+                              'itemIndex': itemIndex // Índice do item
+                            },
+                          );
+                          print(
+                              'Navegando para detalhes com catIndex: $catIndex, itemIndex: $itemIndex');
+                        },
+                      );
+                    }).toList(), // Converte para uma lista de widgets
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'pedidos');
+        },
+        child: Icon(Icons.receipt_long),
+        backgroundColor: cor9,
+        foregroundColor: cor1,
       ),
     );
   }

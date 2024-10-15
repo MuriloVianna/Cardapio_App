@@ -2,8 +2,10 @@ import '../model/categoria.dart';
 import '../model/item.dart';
 
 class ItemService {
-  static List<Categoria> gerarMenu() {
-    List<Categoria> list = [
+  List<Categoria> list = [];
+
+  List<Categoria> gerarMenu() {
+    list = [
       Categoria(
         'Salgados',
         [
@@ -32,5 +34,9 @@ class ItemService {
       ),
     ];
     return list;
+  }
+
+  Item retornaItem(int catIndex, int itemIndex) {
+    return list[catIndex].lista_itens[itemIndex];
   }
 }
