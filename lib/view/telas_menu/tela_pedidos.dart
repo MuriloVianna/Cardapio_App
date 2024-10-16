@@ -92,7 +92,7 @@ class _TelaPedidosState extends State<TelaPedidos> {
                                         onPressed: () {
                                           setState(() {
                                             if (item.quantidade > 1) {
-                                              item.quantidade--; // Decrementa a quantidade
+                                              item.quantidade--;
                                             } else {
                                               PedidoService.removerPedido(
                                                   item); // Remove o item se a quantidade for 1
@@ -101,14 +101,14 @@ class _TelaPedidosState extends State<TelaPedidos> {
                                         },
                                       ),
                                       Text(
-                                        '${item.quantidade}', // Exibe a quantidade atual
+                                        '${item.quantidade}',
                                         style: TextStyle(fontSize: 20),
                                       ),
                                       IconButton(
                                         icon: Icon(Icons.add),
                                         onPressed: () {
                                           setState(() {
-                                            item.quantidade++; // Incrementa a quantidade
+                                            item.quantidade++;
                                           });
                                         },
                                       ),
@@ -119,8 +119,7 @@ class _TelaPedidosState extends State<TelaPedidos> {
                                     icon: Icon(Icons.delete),
                                     onPressed: () {
                                       setState(() {
-                                        PedidoService.removerPedido(
-                                            item); // Remove o item
+                                        PedidoService.removerPedido(item);
                                       });
                                     },
                                   ),
@@ -143,20 +142,16 @@ class _TelaPedidosState extends State<TelaPedidos> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Aqui você pode adicionar a lógica para confirmar o pedido
-                // Por exemplo, redirecionar para uma tela de confirmação
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Pedido confirmado com sucesso!')),
                 );
-                // Navegar para a tela de confirmação final (opcional)
-                // Navigator.pushNamed(context, '/telaConfirmacao');
               },
               child: Text('Confirmar Pedido'),
               style: ElevatedButton.styleFrom(
                   padding:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
                   textStyle: TextStyle(fontSize: 20),
-                  backgroundColor: cor9, // Cor do botão
+                  backgroundColor: cor9,
                   foregroundColor: cor1),
             ),
           ],

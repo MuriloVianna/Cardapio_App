@@ -23,10 +23,7 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
 
   @override
   Widget build(BuildContext context) {
-    //
     // Receber os dados que foram enviados por argumento
-    // Exemplo: {'catIndex': 0, 'itemIndex': 1}
-    //
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, int>?;
 
@@ -39,9 +36,7 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
     final int catIndex = args['catIndex']!;
     final int itemIndex = args['itemIndex']!;
 
-    //
     // Retornar o item a partir do índice da categoria e do item
-    //
     var item = srv.retornaItem(catIndex, itemIndex);
 
     return Scaffold(
@@ -74,13 +69,12 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
               child: Image.asset(
                 item.imagem,
                 width: 400,
-                height: 350, // Ajuste a altura da imagem
+                height: 350,
                 fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço
               ),
             ),
-            SizedBox(height: 20), // Espaço entre a imagem e os textos
-
-            // Exibir o nome e outros detalhes do item
+            SizedBox(height: 20),
+            // Nome e detalhes do item
             Text(
               item.nome,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -95,7 +89,6 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
               'Preço: R\$ ${item.preco.toStringAsFixed(2)}',
               style: TextStyle(fontSize: 18, color: cor9),
             ),
-
             // Controles de quantidade
             SizedBox(height: 20),
             Row(
@@ -126,8 +119,7 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
               ],
             ),
             SizedBox(height: 20),
-
-            // Botão para adicionar ao pedido no final da página rolável
+            // Botão para adicionar ao pedido
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: ElevatedButton(
@@ -140,13 +132,11 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
                     quantidade:
                         quantidade, // Aqui estamos passando a quantidade
                   ));
-
-                  print("Adicionando ${quantidade}x ${item.nome} ao pedido");
-
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                        content: Text(
-                            '$quantidade ${item.nome} adicionado(s) à lista de pedidos!')),
+                      content: Text(
+                          '$quantidade ${item.nome} adicionado(s) à lista de pedidos!'),
+                    ),
                   );
                 },
                 child: Padding(
@@ -162,13 +152,6 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
           ],
         ),
       ),
-    );
-  }
-
-  exibirCampoTexto(String label, String texto) {
-    return ListTile(
-      title: Text(label, style: TextStyle(fontSize: 12)),
-      subtitle: Text(texto, style: TextStyle(fontSize: 22)),
     );
   }
 }

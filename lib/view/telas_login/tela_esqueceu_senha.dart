@@ -12,7 +12,7 @@ class TelaEsqueceuSenha extends StatefulWidget {
 }
 
 // Chave global para o formulário
-final _formKey = GlobalKey<FormState>();
+final formKey = GlobalKey<FormState>();
 
 class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
   @override
@@ -41,9 +41,6 @@ class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
                     ),
                   ),
                 ),
-                //
-                //
-                //
                 const SizedBox(
                   height: 50,
                 ),
@@ -51,13 +48,12 @@ class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
                   padding: const EdgeInsets.symmetric(
                       horizontal:
                           7), // Cria um espaço na lateral para a caixa não ficar colada no canto
-
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Form(
-                          key: _formKey,
+                          key: formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -101,7 +97,7 @@ class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
                                     title: const Text(
                                         'Email enviado com sucesso!'),
                                     content: const Text(
-                                        'Verifique seu email para recurar a sua senha'),
+                                        'Verifique seu email para recuperar a sua senha'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pushNamed(
@@ -113,8 +109,7 @@ class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 147, 114, 56)),
+                                  backgroundColor: cor5),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 16),
                                 child: Text(

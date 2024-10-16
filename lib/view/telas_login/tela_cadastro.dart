@@ -1,5 +1,4 @@
 import 'package:cardapio/estilos.dart';
-import 'package:cardapio/view/telas_login/login_page.dart';
 import 'package:flutter/material.dart';
 import '../../Widget/widget.dart';
 
@@ -13,7 +12,7 @@ class TelaCadastro extends StatefulWidget {
 }
 
 // Chave global para o formulário
-final _formKey = GlobalKey<FormState>();
+final formKey = GlobalKey<FormState>();
 
 class _TelaCadastroState extends State<TelaCadastro> {
   @override
@@ -26,8 +25,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
       children: [
         BackgroundImage(), //Retorna a imagem de fundo
         Scaffold(
-          backgroundColor: Colors
-              .transparent, //Cor transparente para não tampar a imagem ao fundo
+          backgroundColor: Colors.transparent, //Cor transparente para não tampar a imagem ao fundo
           body: SingleChildScrollView(
             child: SafeArea(
                 //Deixa a logo em uma posição que não tampa nada
@@ -36,10 +34,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                 const SizedBox(
                   height: 15,
                 ),
-                // icone do app
-                //
-                // Adicionar Logo pequena em cima
-                //
                 Container(
                   height: 150,
                   child: Center(
@@ -81,7 +75,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 12), // Espaço entre as duas caixas
                           child: Form(
-                            key: _formKey,
+                            key: formKey,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment
                                   .end, // Deixa o botão "esqueceu a senha" na direita
@@ -135,9 +129,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                   backgroundColor: cor5),
                               onTap: () {
                                 // Verifica se o formulário é válido
-                                if (_formKey.currentState!.validate()) {
+                                if (formKey.currentState!.validate()) {
                                   // Se válido, faz alguma ação (envia os dados, etc.)
-                                  _formKey.currentState!.reset();
+                                  formKey.currentState!.reset();
                                 }
                               },
                             ),
@@ -149,7 +143,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             BotaoCadatro(
                               text: 'Voltar',
                               onTap: () {
-                                _formKey.currentState!.reset();
+                                formKey.currentState!.reset();
                                 Navigator.pop(context);
                               },
                             ),

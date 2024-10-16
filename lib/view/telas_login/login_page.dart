@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 // Chave global para o formulário
-final _formKey = GlobalKey<FormState>();
+final formKey = GlobalKey<FormState>();
 
 class _LoginPageState extends State<LoginPage> {
   @override
@@ -59,8 +59,8 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 12), // Espaço entre as duas caixas
                         child: Form(
-                          key: _formKey,
-                          // Associa a chave do formulário para validação
+                          key:
+                              formKey, // Associa a chave do formulário para validação
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment
                                 .end, // Deixa o botão "esqueceu a senha" na direita
@@ -74,17 +74,13 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(
                                 height: 22,
                               ),
-                              //
                               // Caixa da senha
-                              //
                               SenhaText(
                                 controller: senhaController,
                                 obscureText: true,
                                 hintText: 'Senha',
                               ),
-                              //
                               // Botao esqueceu a senha
-                              //
                               TextButton(
                                 child: Text(
                                   'Esqueceu a senha?',
@@ -93,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  _formKey.currentState!.reset();
+                                  formKey.currentState!.reset();
                                   Navigator.pushNamed(context, 'esqueceu');
                                 },
                               ),
@@ -113,12 +109,11 @@ class _LoginPageState extends State<LoginPage> {
                                 ElevatedButton.styleFrom(backgroundColor: cor5),
                             onTap: () {
                               // Verifica se o formulário é válido
-                              if (_formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 // Se válido, faz alguma ação (envia os dados, etc.)
-                                _formKey.currentState!.reset();
+                                formKey.currentState!.reset();
                                 Navigator.pushNamed(context, 'menu');
                               }
-                              ;
                             },
                           ),
                           //
@@ -129,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                           BotaoCadatro(
                             text: 'Cadastre-se!',
                             onTap: () {
-                              _formKey.currentState!.reset();
+                              formKey.currentState!.reset();
                               Navigator.pushNamed(context, 'cadastro');
                             },
                           ),

@@ -3,6 +3,7 @@ import 'package:cardapio/model/categoria.dart';
 import 'package:cardapio/service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:cardapio/Widget/appBar.dart';
 
 final ItemService srv = GetIt.instance<ItemService>();
 
@@ -26,25 +27,26 @@ class _TelaMenuState extends State<TelaMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: EdgeInsets.only(bottom: 12),
-          child: Text(
-            "Ana's Coffee",
-            style: logo.copyWith(fontSize: 40),
-          ),
-        ),
-        backgroundColor: cor9,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushNamed(
-                context, 'login'); // Função para voltar para a tela anterior
-          },
-        ),
-      ),
-      backgroundColor: cor1,
+      appBar: MyAppbar(),
+      //AppBar(
+      //   title: Padding(
+      //     padding: EdgeInsets.only(bottom: 12),
+      //     child: Text(
+      //       "Ana's Coffee",
+      //       style: logo.copyWith(fontSize: 40),
+      //     ),
+      //   ),
+      //   backgroundColor: cor9,
+      //   automaticallyImplyLeading: false,
+      //   leading: IconButton(
+      //     icon: Icon(Icons.arrow_back),
+      //     onPressed: () {
+      //       Navigator.pushNamed(
+      //           context, 'login'); // Função para voltar para a tela anterior
+      //     },
+      //   ),
+      // ),
+      backgroundColor: cor2,
       body: Padding(
         padding: EdgeInsets.all(20),
         child: ListView.builder(
@@ -52,6 +54,7 @@ class _TelaMenuState extends State<TelaMenu> {
           itemBuilder: (context, catIndex) {
             final categoria = listaMenu[catIndex];
             return Card(
+              color: cor3, // Cor de fundo do Card
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,21 +71,19 @@ class _TelaMenuState extends State<TelaMenu> {
                         categoria.lista_itens.asMap().entries.map((entry) {
                       final itemIndex = entry.key;
                       final item = entry.value;
-
                       return ListTile(
-                        title: Text(item.nome), // Exibe o nome do item
-                        // subtitle: Text(item.descricao), // Exibe a descrição do item
+                        title: Text(item.nome),
                         trailing: Text(
                           'R\$ ${item.preco.toStringAsFixed(2)}',
                           style: TextStyle(fontSize: 17),
                         ), // Exibe o preço
+                        // Mostra a imagem à esquerda
                         leading: Image.asset(
                           item.imagem,
                           width: 40,
                           height: 40,
                           fit: BoxFit.cover,
-                        ), // Mostra a imagem à esquerda
-                        // leading: SizedBox(), // adicionar imagens
+                        ),
                         onTap: () {
                           Navigator.pushNamed(
                             context,
@@ -92,8 +93,6 @@ class _TelaMenuState extends State<TelaMenu> {
                               'itemIndex': itemIndex // Índice do item
                             },
                           );
-                          print(
-                              'Navegando para detalhes com catIndex: $catIndex, itemIndex: $itemIndex');
                         },
                       );
                     }).toList(), // Converte para uma lista de widgets
@@ -109,7 +108,7 @@ class _TelaMenuState extends State<TelaMenu> {
           Navigator.pushNamed(context, 'pedidos');
         },
         child: Icon(Icons.receipt_long),
-        backgroundColor: cor9,
+        backgroundColor: cor4,
         foregroundColor: cor1,
       ),
     );
