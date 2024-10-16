@@ -25,7 +25,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
       children: [
         BackgroundImage(), //Retorna a imagem de fundo
         Scaffold(
-          backgroundColor: Colors.transparent, //Cor transparente para não tampar a imagem ao fundo
+          backgroundColor: Colors
+              .transparent, //Cor transparente para não tampar a imagem ao fundo
           body: SingleChildScrollView(
             child: SafeArea(
                 //Deixa a logo em uma posição que não tampa nada
@@ -130,7 +131,23 @@ class _TelaCadastroState extends State<TelaCadastro> {
                               onTap: () {
                                 // Verifica se o formulário é válido
                                 if (formKey.currentState!.validate()) {
-                                  // Se válido, faz alguma ação (envia os dados, etc.)
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text(
+                                          'Conta criada com sucesso!'),
+                                      content: const Text(
+                                          'Faça o login agora mesmo para fazer os seus pedidos!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pushNamed(
+                                              context, 'login'),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                   formKey.currentState!.reset();
                                 }
                               },

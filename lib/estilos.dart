@@ -10,9 +10,6 @@ var logo = GoogleFonts.dancingScript(
     fontSize: 65,
   ),
 );
-/*  fontFamily: 'Dancing Script',
-  fontSize: 50,
-);*/
 
 var textoLogin = GoogleFonts.lato(
   textStyle: TextStyle(

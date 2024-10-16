@@ -22,8 +22,6 @@ void main() {
   //
   getIt.registerSingleton<ItemService>(ItemService());
 
-  var srv = getIt<ItemService>();
-
   runApp(
     DevicePreview(
       enabled: true,
@@ -40,7 +38,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowMaterialGrid: false,
       debugShowCheckedModeBanner: false, //Tira o banner de debug da lateral
-      initialRoute: 'menu', //Tela que o app inicia
+      initialRoute: 'login', //Tela que o app inicia
       routes: {
         'login': (context) => LoginPage(
               onTap: () {},

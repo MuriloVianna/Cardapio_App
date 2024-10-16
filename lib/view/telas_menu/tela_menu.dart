@@ -3,7 +3,6 @@ import 'package:cardapio/model/categoria.dart';
 import 'package:cardapio/service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:cardapio/Widget/appBar.dart';
 
 final ItemService srv = GetIt.instance<ItemService>();
 
@@ -27,25 +26,28 @@ class _TelaMenuState extends State<TelaMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar(),
-      //AppBar(
-      //   title: Padding(
-      //     padding: EdgeInsets.only(bottom: 12),
-      //     child: Text(
-      //       "Ana's Coffee",
-      //       style: logo.copyWith(fontSize: 40),
-      //     ),
-      //   ),
-      //   backgroundColor: cor9,
-      //   automaticallyImplyLeading: false,
-      //   leading: IconButton(
-      //     icon: Icon(Icons.arrow_back),
-      //     onPressed: () {
-      //       Navigator.pushNamed(
-      //           context, 'login'); // Função para voltar para a tela anterior
-      //     },
-      //   ),
-      // ),
+      appBar: AppBar(
+        title: Padding(
+          padding: EdgeInsets.only(bottom: 12),
+          child: Text(
+            "Ana's Coffee",
+            style: logo.copyWith(fontSize: 40),
+          ),
+        ),
+        centerTitle: true, // Centraliza o título
+        backgroundColor: cor4,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            Icons.logout,
+            color: const Color.fromARGB(255, 126, 0, 0),
+          ),
+          onPressed: () {
+            Navigator.pushNamed(
+                context, 'login'); // Função para voltar para a tela anterior
+          },
+        ),
+      ),
       backgroundColor: cor2,
       body: Padding(
         padding: EdgeInsets.all(20),

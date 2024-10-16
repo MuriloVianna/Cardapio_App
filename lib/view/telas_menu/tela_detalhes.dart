@@ -48,10 +48,14 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
             style: logo.copyWith(fontSize: 40),
           ),
         ),
+        centerTitle: true, // Centraliza o título
         backgroundColor: cor9,
         automaticallyImplyLeading: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: cor1,
+          ),
           onPressed: () {
             Navigator.pop(context); // Função para voltar para a tela anterior
           },
@@ -139,12 +143,16 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
                     ),
                   );
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: cor9, // Cor de fundo do botão
+                  foregroundColor: cor1, // Cor do texto do botão
+                ),
                 child: Padding(
                   padding:
                       const EdgeInsets.all(16.0), // Ajusta o tamanho do botão
                   child: Text(
                     'Adicionar ao Pedido',
-                    style: TextStyle(fontSize: 18),
+                    style: textoLogin.copyWith(fontSize: 18),
                   ),
                 ),
               ),

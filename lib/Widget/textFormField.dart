@@ -171,7 +171,8 @@ class ConfirmaSenhaText extends StatelessWidget {
     super.key,
     required this.controller,
     required this.obscureText,
-    required this.hintText, required this.senhaController,
+    required this.hintText,
+    required this.senhaController,
   });
 
   @override
@@ -207,8 +208,8 @@ class ConfirmaSenhaText extends StatelessWidget {
           if (value == null || value.isEmpty) {
             return '    O campo de senha não pode estar vazio';
           } else if (value != senhaController.text) {
-                    return 'As senhas não correspondem';
-                  }
+            return '    As senhas não correspondem';
+          }
           return null;
         },
         textInputAction: TextInputAction.next,

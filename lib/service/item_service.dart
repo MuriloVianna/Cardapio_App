@@ -61,7 +61,7 @@ class ItemService {
               'lib/images/Doces/AzulCeleste.jpg'),
           Item(
               'Jardim Secreto',
-              'Saboreie a natureza em cada garfada. Nossas tartes são preparadas com ingredientes frescos e naturais, como frutas da estação e flores comestíveis. Uma opção leve e nutritiva para um momento de puro prazer.\n\n Os sabores inclusos são: maracujá com capuchinha, morango com violetas e limão siciliano com calêndula.\n\nContém: 6 tortinhas variadas',
+              'Saboreie a natureza em cada garfada. Nossas tartes são preparadas com ingredientes frescos e naturais, como frutas da estação e flores comestíveis. Uma opção leve e nutritiva para um momento de puro prazer.\n\nOs sabores inclusos são: maracujá com capuchinha, morango com violetas e limão siciliano com calêndula.\n\nContém: 6 tortinhas variadas',
               75.00,
               'lib/images/Doces/JardimSecreto.jpg'),
           Item(

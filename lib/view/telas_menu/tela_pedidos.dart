@@ -22,13 +22,53 @@ class _TelaPedidosState extends State<TelaPedidos> {
     if (pedidos.isEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Pedidos'),
-          centerTitle: true,
+          title: Padding(
+            padding: EdgeInsets.only(bottom: 12),
+            child: Text(
+              "Pedidos",
+              style: logo.copyWith(fontSize: 40),
+            ),
+          ),
+          centerTitle: true, // Centraliza o título
+          backgroundColor: cor4,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: cor1,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(
+                  context, 'menu'); // Função para voltar para a tela anterior
+            },
+          ),
         ),
+        backgroundColor: cor2,
         body: Center(
-          child: Text(
-            'Nenhum item no pedido!',
-            style: TextStyle(fontSize: 18),
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min, // Para centralizar no meio verticalmente
+            children: [
+              Text(
+                'Nenhum item no pedido!',
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(height: 20), // Espaçamento entre o texto e o botão
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context, 'menu'); // Redireciona para o menu
+                },
+                child: Text('Adicionar Itens'),
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                  textStyle: TextStyle(fontSize: 18),
+                  backgroundColor: cor4, // Cor de fundo do botão
+                  foregroundColor: cor1, // Cor do texto
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -39,9 +79,28 @@ class _TelaPedidosState extends State<TelaPedidos> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pedidos'),
-        centerTitle: true,
+        title: Padding(
+          padding: EdgeInsets.only(bottom: 12),
+          child: Text(
+            "Pedidos",
+            style: logo.copyWith(fontSize: 40),
+          ),
+        ),
+        centerTitle: true, // Centraliza o título
+        backgroundColor: cor4,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: cor1,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(
+                context, 'menu'); // Função para voltar para a tela anterior
+          },
+        ),
       ),
+      backgroundColor: cor2,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -63,7 +122,12 @@ class _TelaPedidosState extends State<TelaPedidos> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(item.nome),
+                                Text(
+                                  item.nome,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 Text(
                                   'Preço unitário: R\$ ${item.preco.toStringAsFixed(2)}',
                                   style: TextStyle(fontSize: 14),
@@ -116,7 +180,10 @@ class _TelaPedidosState extends State<TelaPedidos> {
                                   ),
                                   // Ícone da lixeira
                                   IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         PedidoService.removerPedido(item);
