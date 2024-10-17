@@ -110,7 +110,6 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () {
                               // Verifica se o formulário é válido
                               if (formKey.currentState!.validate()) {
-                                // Se válido, faz alguma ação (envia os dados, etc.)
                                 formKey.currentState!.reset();
                                 Navigator.pushNamed(context, 'menu');
                               }

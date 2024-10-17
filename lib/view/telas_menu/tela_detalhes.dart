@@ -134,7 +134,7 @@ class _TelaDetalhesState extends State<TelaDetalhes> {
                     item.preco,
                     item.imagem,
                     quantidade:
-                        quantidade, // Aqui estamos passando a quantidade
+                        quantidade, 
                   ));
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

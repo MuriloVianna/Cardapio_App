@@ -8,7 +8,7 @@ class BackgroundImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
-      //Sombra ao fundo do botão
+      //Sombra ao fundo
       shaderCallback: (bounds) => const LinearGradient(
         colors: [Colors.black, Colors.black12],
         begin: Alignment.bottomCenter,

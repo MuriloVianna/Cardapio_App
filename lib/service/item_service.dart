@@ -6,6 +6,28 @@ class ItemService {
 
   List<Categoria> gerarMenu() {
     list = [
+      Categoria('Cookies', [
+        Item(
+            'Magia Rosa',
+            'Prepare-se para uma explosão de sabor! Nossos cookies rosa com gotas de chocolate branco são a combinação perfeita para adoçar seu dia. Irresistíveis!',
+            6.00,
+            'lib/images/Cookies/MagiaRosa.jpg'),
+        Item(
+            'Explosão de Limão',
+            'Uma explosão de sabor cítrico em cada mordida! Nossos cookies de limão são irresistíveis, com um recheio cremoso que derrete na boca.',
+            6.00,
+            'lib/images/Cookies/ExplosãoDeLimão.jpg'),
+        Item(
+            'Clássico de Amêndoas',
+            'Deliciosos cookies com a combinação perfeita de massa macia, cobertura de chocolate belga e crocantes pedaços de amêndoa. Um clássico irresistível!',
+            8.00,
+            'lib/images/Cookies/ClássicoDeAmêndoas.jpg'),
+        Item(
+            'Tentação de Chocolate',
+            'A combinação perfeita entre a massa de cookie caseira e o irresistível creme de Nutella. Uma experiência única para os amantes de chocolate.',
+            10.00,
+            'lib/images/Cookies/TentaçãoDeChocolate.jpg')
+      ]),
       Categoria(
         'Salgados',
         [

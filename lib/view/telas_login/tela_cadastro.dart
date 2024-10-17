@@ -56,7 +56,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       " Vamos criar sua conta!",
                       style: textoLogin.copyWith(
                           fontSize:
-                              30), //Propriedades da logo definada na classe paletas
+                              30), //Propriedades da logo definada na classe estilos
                     ),
                   ),
                 ),

@@ -37,7 +37,7 @@ class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
                     child: Text(
                       " Ana's\nCoffee",
                       style:
-                          logo, //Propriedades da logo definada na classe paletas
+                          logo, //Propriedades da logo definada na classe estilos
                     ),
                   ),
                 ),

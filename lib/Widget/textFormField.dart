@@ -144,7 +144,7 @@ class SenhaText extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle:
-              textoLogin, // Propriedades do texto de email na classe paletas
+              textoLogin, // Propriedades do texto de email na classe estilos
         ),
         style: textoLogin,
         validator: (value) {
@@ -195,13 +195,13 @@ class ConfirmaSenhaText extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal:
                     20), // Deixa o conteudo do textField alinhado simetricamente
-            child: Icon(Icons.lock, //Icone do email
+            child: Icon(Icons.lock, //Icone da senha 
                 size: 30,
                 color: Colors.white),
           ),
           hintText: hintText,
           hintStyle:
-              textoLogin, // Propriedades do texto de email na classe paletas
+              textoLogin, // Propriedades do texto de email na classe estilos
         ),
         style: textoLogin,
         validator: (value) {
@@ -246,13 +246,13 @@ class NomeText extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal:
                     20), // Deixa o conteudo do textField alinhado simetricamente
-            child: Icon(Icons.person, //Icone do email
+            child: Icon(Icons.person, //Icone do nome
                 size: 30,
                 color: Colors.white),
           ),
           hintText: hintText,
           hintStyle:
-              textoLogin, // Propriedades do texto de email na classe paletas
+              textoLogin, // Propriedades do texto de email na classe estilos
         ),
         style: textoLogin,
         validator: (value) {

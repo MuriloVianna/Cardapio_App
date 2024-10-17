@@ -38,8 +38,7 @@ class _TelaPedidosState extends State<TelaPedidos> {
               color: cor1,
             ),
             onPressed: () {
-              Navigator.pushNamed(
-                  context, 'menu'); // Função para voltar para a tela anterior
+              Navigator.pushNamed(context, 'menu');
             },
           ),
         ),
@@ -56,8 +55,7 @@ class _TelaPedidosState extends State<TelaPedidos> {
               SizedBox(height: 20), // Espaçamento entre o texto e o botão
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(
-                      context, 'menu'); // Redireciona para o menu
+                  Navigator.pushNamed(context, 'menu');
                 },
                 child: Text('Adicionar Itens'),
                 style: ElevatedButton.styleFrom(
@@ -95,8 +93,7 @@ class _TelaPedidosState extends State<TelaPedidos> {
             color: cor1,
           ),
           onPressed: () {
-            Navigator.pushNamed(
-                context, 'menu'); // Função para voltar para a tela anterior
+            Navigator.pushNamed(context, 'menu');
           },
         ),
       ),

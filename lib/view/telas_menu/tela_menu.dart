@@ -44,7 +44,7 @@ class _TelaMenuState extends State<TelaMenu> {
           ),
           onPressed: () {
             Navigator.pushNamed(
-                context, 'login'); // Função para voltar para a tela anterior
+                context, 'login');
           },
         ),
       ),
