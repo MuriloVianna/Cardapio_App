@@ -1,5 +1,4 @@
 import 'package:cardapio/estilos.dart';
-import 'package:cardapio/model/categoria.dart';
 import 'package:cardapio/service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -14,13 +13,12 @@ class TelaMenu extends StatefulWidget {
 }
 
 class _TelaMenuState extends State<TelaMenu> {
-  List<Categoria> listaMenu = [];
+  Future<List<Categoria>>? futureCategorias;
 
   @override
   void initState() {
     super.initState();
-    listaMenu = srv.gerarMenu(); // Atualiza a variável de instância
-    setState(() {}); // Força a reconstrução da tela
+    futureCategorias = srv.gerarMenu(); 
   }
 
   @override
@@ -34,7 +32,7 @@ class _TelaMenuState extends State<TelaMenu> {
             style: logo.copyWith(fontSize: 40),
           ),
         ),
-        centerTitle: true, // Centraliza o título
+        centerTitle: true,
         backgroundColor: cor4,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -43,65 +41,80 @@ class _TelaMenuState extends State<TelaMenu> {
             color: const Color.fromARGB(255, 126, 0, 0),
           ),
           onPressed: () {
-            Navigator.pushNamed(
-                context, 'login');
+            Navigator.pushNamed(context, 'login');
           },
         ),
       ),
       backgroundColor: cor2,
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: ListView.builder(
-          itemCount: listaMenu.length,
-          itemBuilder: (context, catIndex) {
-            final categoria = listaMenu[catIndex];
-            return Card(
-              color: cor3, // Cor de fundo do Card
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      categoria.categoria,
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Column(
-                    children:
-                        categoria.lista_itens.asMap().entries.map((entry) {
-                      final itemIndex = entry.key;
-                      final item = entry.value;
-                      return ListTile(
-                        title: Text(item.nome),
-                        trailing: Text(
-                          'R\$ ${item.preco.toStringAsFixed(2)}',
-                          style: TextStyle(fontSize: 17),
-                        ), // Exibe o preço
-                        // Mostra a imagem à esquerda
-                        leading: Image.asset(
-                          item.imagem,
-                          width: 40,
-                          height: 40,
-                          fit: BoxFit.cover,
+        child: FutureBuilder<List<Categoria>>(
+          future: futureCategorias,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Erro ao carregar o menu'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(
+                  child: Text('Nenhuma categoria ou item encontrado'));
+            } else {
+              final categorias = snapshot.data!;
+
+              return ListView.builder(
+                itemCount: categorias.length,
+                itemBuilder: (context, catIndex) {
+                  final categoria = categorias[catIndex];
+                  final itensDaCategoria = categoria.listaItens;
+
+                  return Card(
+                    color: cor3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            categoria.nome,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            'detalhes',
-                            arguments: {
-                              'catIndex': catIndex, // Índice da categoria
-                              'itemIndex': itemIndex // Índice do item
-                            },
-                          );
-                        },
-                      );
-                    }).toList(), // Converte para uma lista de widgets
-                  ),
-                ],
-              ),
-            );
+                        Column(
+                          children: itensDaCategoria.map((item) {
+                            return ListTile(
+                              title: Text(item.nome),
+                              trailing: Text(
+                                'R\$ ${item.preco.toStringAsFixed(2)}',
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              leading: Image.network(
+                                item.imagem,
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              ),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  'detalhes',
+                                  arguments: {
+                                    'categoriaNome': categoria.nome, 
+                                    'itemIndex': itensDaCategoria.indexOf(item), 
+                                  },
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }
           },
         ),
       ),

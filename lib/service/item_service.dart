@@ -1,133 +1,187 @@
-import '../model/categoria.dart';
-import '../model/item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ItemService {
-  List<Categoria> list = [];
+class Item {
+  final String id; 
+  final String nome;
+  final String descricao;
+  final double preco;
+  final String imagem;
+  final bool ativo;
+  final String categoria;
+  int quantidade;
 
-  List<Categoria> gerarMenu() {
-    list = [
-      Categoria('Cookies', [
-        Item(
-            'Magia Rosa',
-            'Prepare-se para uma explosão de sabor! Nossos cookies rosa com gotas de chocolate branco são a combinação perfeita para adoçar seu dia. Irresistíveis!',
-            6.00,
-            'lib/images/Cookies/MagiaRosa.jpg'),
-        Item(
-            'Explosão de Limão',
-            'Uma explosão de sabor cítrico em cada mordida! Nossos cookies de limão são irresistíveis, com um recheio cremoso que derrete na boca.',
-            6.00,
-            'lib/images/Cookies/ExplosãoDeLimão.jpg'),
-        Item(
-            'Clássico de Amêndoas',
-            'Deliciosos cookies com a combinação perfeita de massa macia, cobertura de chocolate belga e crocantes pedaços de amêndoa. Um clássico irresistível!',
-            8.00,
-            'lib/images/Cookies/ClássicoDeAmêndoas.jpg'),
-        Item(
-            'Tentação de Chocolate',
-            'A combinação perfeita entre a massa de cookie caseira e o irresistível creme de Nutella. Uma experiência única para os amantes de chocolate.',
-            10.00,
-            'lib/images/Cookies/TentaçãoDeChocolate.jpg')
-      ]),
-      Categoria(
-        'Salgados',
-        [
-          Item(
-              'Pão de Queijo Mineiro',
-              'Perfeitos para acompanhar um café coado na hora. Nosso pão de queijo mineiro, com sua casquinha com sua casquinha crocante e interior macio e cremoso, é uma explosão de sabor em sua boca!\n\nContém: 10 mini pães de queijo',
-              8.00,
-              'lib/images/Salgados/PãoDeQueijoMineiro.jpg'),
-          Item(
-              'Sanduíche Veggie Power',
-              'Uma opção deliciosa é nutritiva! Feito com guacamole caseiro, rodelas de tomate, queijo vegano. Perfeito para quem busca uma alimentação mais saudável',
-              16.00,
-              'lib/images/Salgados/SanduicheVeggiePower.jpg'),
-          Item(
-              'Torta da Vovó',
-              'Resgatando o sabor da casa da vovó, nossa torta é feito com uma receita especial, transmitida de geração em geração. Uma experiência culinária inesquecível!',
-              16.00,
-              'lib/images/Salgados/TortaDaVovó.jpg'),
-          Item(
-              'Bolo Salgado de Frango',
-              'O prato mais pedido da casa! Saboreie essa deliciosa combinação de frango desfiado, legumes e molho cremoso em camadas de pão de forma com um toque de salsa picada.',
-              25.00,
-              'lib/images/Salgados/BoloSalgadoDeFrango.jpg'),
-          Item(
-              'Batata Jacu',
-              'Sabores nordestinos em um prato único! A carne seca desfiada, o queijo coalho e os pedaços de bacon dão um toque especial a essa batata.',
-              19.00,
-              'lib/images/Salgados/BatataJacu.jpg')
-        ],
-      ),
-      Categoria(
-        'Doces',
-        [
-          Item(
-              'Brownie Bites Gourmet',
-              'Deliciosos pedaços de brownie úmido e intenso, feitos com chocolate belga e nozes crocantes. Perfeitos para adoçar qualquer momento e te levar para o paraíso do chocolate.\n\nContém: 8 brownies pequenos',
-              25.00,
-              'lib/images/Doces/BrownieBitesGourmet.jpg'),
-          Item(
-              'Cheesecake de Mirtilo',
-              'Um clássico. Base crocante e recheio cremoso de queijo, finalizado com uma generosa camada de mirtilos frescos.',
-              20.0,
-              'lib/images/Doces/CheesecakeDeMirtilo.jpg'),
-          Item(
-              'Pistachio Dream',
-              'Uma explosão de sabor em cada garfada! Cheesecake cremoso com um toque de limão siciliano, coberto por uma generosa camada de mousse de pistache e finalizado com pistaches triturados. Um verdadeiro deleite para os sentidos.',
-              30.00,
-              'lib/images/Doces/PistachioDream.jpg'),
-          Item(
-              'Azul Celeste',
-              'Uma ode à natureza em cada garfada. Massa crocante e recheio cremoso com blueberries frescas, finalizado com um toque cítrico de limão siciliano. Uma experiência única para os paladares mais exigentes.',
-              18.00,
-              'lib/images/Doces/AzulCeleste.jpg'),
-          Item(
-              'Jardim Secreto',
-              'Saboreie a natureza em cada garfada. Nossas tartes são preparadas com ingredientes frescos e naturais, como frutas da estação e flores comestíveis. Uma opção leve e nutritiva para um momento de puro prazer.\n\nOs sabores inclusos são: maracujá com capuchinha, morango com violetas e limão siciliano com calêndula.\n\nContém: 6 tortinhas variadas',
-              75.00,
-              'lib/images/Doces/JardimSecreto.jpg'),
-          Item(
-              'Eclair do Amor',
-              'Uma explosão de sabor e amor em cada mordida. Nosso Eclair do Amor é feito com massa choux leve e crocante, recheado com um creme de chantilly suave e finalizado com morangos frescos em formato de coração. Perfeito para celebrar momentos especiais.',
-              10.00,
-              'lib/images/Doces/EclairDoAmor.jpg'),
-          Item(
-              'Mordida Mágica ',
-              'Dê uma mordida e embarque em uma aventura deliciosa! Nosso Biscoito da Rainha de Copas é feito com ingredientes especiais, coberto com glacê branco e uma massa leve e macia proporcionando uma experiência única e mágica. Perfeito para quem busca um toque de fantasia no dia a dia.\n\nContém: 5 unidades',
-              25.00,
-              'lib/images/Doces/MordidaMágica.jpg')
-        ],
-      ),
-      Categoria(
-        'Bebidas',
-        [
-          Item(
-              'Cappuccino Artesanal',
-              'Saboreie a tradição mineira em cada gole. Nosso cappuccino artesanal é feito com grãos 100% arábica do Sul de Minas, leite cremoso e um toque de canela.',
-              15.00,
-              'lib/images/Bebidas/CappuccinoArtesanal.jpg'),
-          Item(
-              'Chocolate Quente Premium',
-              'Uma explosão de sabor em cada colherada, preparado com chocolate belga e um toque de especiarias, ele é coberto por uma camada de chantilly e borda de chocolate. Uma experiência única para os paladares mais exigentes.',
-              25.00,
-              'lib/images/Bebidas/ChocolateQuentePremium.jpg'),
-          Item(
-              'Unicórnio Rosa',
-              'Uma explosão de sabor e magia em cada gole! Nosso chocolate quente rosa é feito com chocolate branco cremoso, corado naturalmente e finalizado com chantilly, marshmallows coloridos e confeitos. Uma experiência inesquecível para os amantes do doce.',
-              24.00,
-              'lib/images/Bebidas/UnicornioRosa.jpg'),
-          Item(
-              'Milkshake de Doce de Leite',
-              'Um clássico irresistível! Nosso milkshake combina a cremosidade do leite com a doçura intensa do caramelo, finalizado com chantilly e biscoitos amanteigados. Uma explosão de sabor em cada gole!',
-              20.00,
-              'lib/images/Bebidas/MilkshakeDeDoceDeLeite.jpg')
-        ],
-      )
-    ];
-    return list;
+  Item({
+    required this.id, 
+    required this.nome,
+    required this.descricao,
+    required this.preco,
+    required this.imagem,
+    required this.ativo,
+    required this.categoria,
+    this.quantidade = 1,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nome': nome,
+      'descricao': descricao,
+      'preco': preco,
+      'imagem': imagem,
+      'ativo': ativo,
+      'categoria': categoria,
+      'quantidade': quantidade,
+    };
   }
 
-  Item retornaItem(int catIndex, int itemIndex) {
-    return list[catIndex].lista_itens[itemIndex];
+  // Método fromJson para tratar 'categoria' como string
+  factory Item.fromJson(Map<String, dynamic> json, String id) {
+    return Item(
+      id: id, // Passa o ID que vem do Firestore
+      nome: json['nome'] ?? 'Nome não disponível',
+      descricao: json['descricao'] ?? 'Descrição não disponível',
+      preco: (json['preco'] ?? 0).toDouble(),
+      imagem: json['imagem'] ?? 'url_imagem_padrao',
+      ativo: json['ativo'] ?? false,
+      categoria: json['categoria'] ??
+          'Categoria não disponível',
+      quantidade: json['quantidade'] ?? 1,
+    );
+  }
+}
+
+class Categoria {
+  final String nome;
+  final String descricao;
+  final String imagem;
+  final int ordem;
+  List<Item> listaItens;
+
+  Categoria(
+    this.nome,
+    this.descricao,
+    this.imagem,
+    this.ordem,
+    this.listaItens,
+  );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nome': nome,
+      'descricao': descricao,
+      'imagem': imagem,
+      'ordem': ordem,
+      'itens': listaItens.map((item) => item.toJson()).toList(),
+    };
+  }
+
+  factory Categoria.fromJson(Map<String, dynamic> json) {
+    return Categoria(
+      json['nome'] ?? 'Categoria não disponível',
+      json['descricao'] ?? 'Descrição não disponível',
+      json['imagem'] ?? 'url_imagem_padrao',
+      json['ordem'] ?? 0,
+      [], // Inicializa a lista de itens vazia
+    );
+  }
+}
+
+// Serviço para gerenciar o menu com o Firestore
+class ItemService {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<Categoria>> gerarMenu() async {
+    List<Categoria> categorias = [];
+
+    try {
+      // Obter categorias do Firestore
+      QuerySnapshot categoriaSnapshot =
+          await _firestore.collection('categorias').get();
+
+      if (categoriaSnapshot.docs.isEmpty) {
+        throw Exception("Nenhuma categoria encontrada.");
+      }
+
+      // Obter todos os itens do cardápio
+      QuerySnapshot itemSnapshot = await _firestore
+          .collection('itens_cardapio')
+          .where('ativo', isEqualTo: true)
+          .get();
+
+      if (itemSnapshot.docs.isEmpty) {
+        throw Exception("Nenhum item ativo encontrado.");
+      }
+
+      // Criar um mapa para categorizar os itens
+      Map<String, List<Item>> itensPorCategoria = {};
+      for (var itemDoc in itemSnapshot.docs) {
+        final item =
+            Item.fromJson(itemDoc.data() as Map<String, dynamic>, itemDoc.id);
+        if (!itensPorCategoria.containsKey(item.categoria)) {
+          itensPorCategoria[item.categoria] = [];
+        }
+        itensPorCategoria[item.categoria]?.add(item);
+      }
+
+      // Associa os itens às suas respectivas categorias
+      for (var doc in categoriaSnapshot.docs) {
+        Categoria categoria =
+            Categoria.fromJson(doc.data() as Map<String, dynamic>);
+
+        // Adiciona a lista se o item pertence a categoria
+        categoria.listaItens = itensPorCategoria[categoria.nome] ?? [];
+
+        categorias.add(categoria);
+      }
+    } catch (e) {
+      print('Erro ao obter categorias ou itens do Firestore: $e');
+      throw Exception('Erro ao carregar o menu: $e');
+    }
+
+    return categorias;
+  }
+
+  // Método para retornar todos os itens do cardápio
+  Future<List<Item>> obterItens() async {
+    try {
+      final snapshot = await _firestore.collection('itens_cardapio').get();
+
+      if (snapshot.docs.isEmpty) {
+        throw Exception("Nenhum item encontrado no cardápio.");
+      }
+
+      return snapshot.docs.map((doc) {
+        return Item.fromJson(doc.data() as Map<String, dynamic>,
+            doc.id); // Passa o doc.id (ID do Firestore) para o fromJson
+      }).toList();
+    } catch (e) {
+      throw Exception('Erro ao obter itens: $e');
+    }
+  }
+
+  Future<Item> retornaItem(String categoriaNome, int itemIndex) async {
+    try {
+      List<Categoria> categorias = await gerarMenu();
+      final categoria = categorias.firstWhere(
+        (cat) => cat.nome == categoriaNome,
+        orElse: () => throw Exception('Categoria não encontrada'),
+      );
+
+      print("Categoria encontrada: ${categoria.nome}");
+
+      if (categoria.listaItens.isEmpty) {
+        throw Exception('Não há itens disponíveis nesta categoria.');
+      }
+
+      if (itemIndex >= categoria.listaItens.length || itemIndex < 0) {
+        throw Exception('Índice do item fora do alcance.');
+      }
+
+      final item = categoria.listaItens[itemIndex];
+      print("Item encontrado: ${item.nome}");
+      return item;
+    } catch (e) {
+      print("Erro ao buscar item: $e");
+      throw Exception('Erro ao buscar item: $e');
+    }
   }
 }

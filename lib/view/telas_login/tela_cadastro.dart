@@ -1,3 +1,4 @@
+import 'package:cardapio/controller/login_controller.dart';
 import 'package:cardapio/estilos.dart';
 import 'package:flutter/material.dart';
 import '../../Widget/widget.dart';
@@ -20,7 +21,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
     TextEditingController emailController = TextEditingController();
     TextEditingController senhaController = TextEditingController();
     TextEditingController ConfirmaSenhaController = TextEditingController();
-    TextEditingController nomeControler = TextEditingController();
+    TextEditingController nomeController = TextEditingController();
     return Stack(
       children: [
         BackgroundImage(), //Retorna a imagem de fundo
@@ -82,7 +83,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                   .end, // Deixa o botão "esqueceu a senha" na direita
                               children: [
                                 NomeText(
-                                  controller: nomeControler,
+                                  controller: nomeController,
                                   hintText: 'Nome',
                                 ),
                                 SizedBox(
@@ -131,24 +132,29 @@ class _TelaCadastroState extends State<TelaCadastro> {
                               onTap: () {
                                 // Verifica se o formulário é válido
                                 if (formKey.currentState!.validate()) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                      title: const Text(
-                                          'Conta criada com sucesso!'),
-                                      content: const Text(
-                                          'Faça o login agora mesmo para fazer os seus pedidos!'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Navigator.pushNamed(
-                                              context, 'login'),
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                  formKey.currentState!.reset();
+                                  LoginController().criarConta(
+                                      context,
+                                      nomeController.text,
+                                      emailController.text,
+                                      senhaController.text);
+                                  // showDialog(
+                                  //   context: context,
+                                  //   builder: (BuildContext context) =>
+                                  //       AlertDialog(
+                                  //     title: const Text(
+                                  //         'Conta criada com sucesso!'),
+                                  //     content: const Text(
+                                  //         'Faça o login agora mesmo para fazer os seus pedidos!'),
+                                  //     actions: [
+                                  //       TextButton(
+                                  //         onPressed: () => Navigator.pushNamed(
+                                  //             context, 'login'),
+                                  //         child: const Text('OK'),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // );
+                                  // formKey.currentState!.reset();
                                 }
                               },
                             ),

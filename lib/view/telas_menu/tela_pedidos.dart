@@ -1,7 +1,8 @@
 import 'package:cardapio/estilos.dart';
+import 'package:cardapio/service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:cardapio/service/pedido_service.dart';
-import 'package:cardapio/model/item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class TelaPedidos extends StatefulWidget {
   const TelaPedidos({Key? key}) : super(key: key);
@@ -13,10 +14,8 @@ class TelaPedidos extends StatefulWidget {
 class _TelaPedidosState extends State<TelaPedidos> {
   @override
   Widget build(BuildContext context) {
-    // Obtém a lista de pedidos
     List<Item> pedidos = PedidoService.obterPedidos();
 
-    // Debug para verificar o que está sendo retornado
     print("Pedidos atuais: ${pedidos.map((item) => item.nome).toList()}");
 
     if (pedidos.isEmpty) {
@@ -72,7 +71,6 @@ class _TelaPedidosState extends State<TelaPedidos> {
       );
     }
 
-    // Calcula o valor total dos pedidos
     double total = PedidoService.calcularTotal();
 
     return Scaffold(
@@ -205,10 +203,55 @@ class _TelaPedidosState extends State<TelaPedidos> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Pedido confirmado com sucesso!')),
-                );
+              onPressed: () async {
+                try {
+                  // Obtém o UID do cliente autenticado
+                  final String uidCliente =
+                      FirebaseAuth.instance.currentUser!.uid;
+
+                  // Finaliza o pedido e salva no Firestore
+                  await PedidoService.finalizarPedido(uidCliente);
+
+                  // Exibe mensagem de Pedido Confirmado
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Pedido Confirmado'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Total do Pedido: R\$ ${total.toStringAsFixed(2)}',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              'Por favor, dirija-se ao caixa para realizar o pagamento.',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+
+                  // Atualiza a tela após finalizar o pedido
+                  setState(() {});
+                } catch (e) {
+                  print('Erro ao confirmar o pedido: $e');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Erro ao confirmar o pedido.')),
+                  );
+                }
               },
               child: Text('Confirmar Pedido'),
               style: ElevatedButton.styleFrom(

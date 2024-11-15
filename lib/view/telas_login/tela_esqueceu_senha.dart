@@ -1,3 +1,4 @@
+import 'package:cardapio/controller/login_controller.dart';
 import 'package:cardapio/estilos.dart';
 import 'package:flutter/material.dart';
 import '../../Widget/widget.dart';
@@ -90,23 +91,26 @@ class _TelaEsqueceuSenhaState extends State<TelaEsqueceuSenha> {
                             ),
                             child: ElevatedButton(
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text(
-                                        'Email enviado com sucesso!'),
-                                    content: const Text(
-                                        'Verifique seu email para recuperar a sua senha'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pushNamed(
-                                            context, 'login'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                LoginController().esqueceuSenha(
+                                    context, emailController.text);
+
+                                // showDialog(
+                                //   context: context,
+                                //   builder: (BuildContext context) =>
+                                //       AlertDialog(
+                                //     title: const Text(
+                                //         'Email enviado com sucesso!'),
+                                //     content: const Text(
+                                //         'Verifique seu email para recuperar a sua senha'),
+                                //     actions: [
+                                //       TextButton(
+                                //         onPressed: () => Navigator.pushNamed(
+                                //             context, 'login'),
+                                //         child: const Text('OK'),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // );
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: cor5),

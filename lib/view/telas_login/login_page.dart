@@ -1,6 +1,7 @@
 import 'package:cardapio/estilos.dart';
 import 'package:flutter/material.dart';
 import '../../Widget/widget.dart';
+import '../../controller/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -110,8 +111,10 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () {
                               // Verifica se o formulário é válido
                               if (formKey.currentState!.validate()) {
-                                formKey.currentState!.reset();
-                                Navigator.pushNamed(context, 'menu');
+                                LoginController().login(context,
+                                    emailController.text, senhaController.text);
+
+                                //formKey.currentState!.reset();
                               }
                             },
                           ),
